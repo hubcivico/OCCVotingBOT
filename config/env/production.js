@@ -13,7 +13,6 @@
 module.exports = {
 
   connections: {
-    'defaults': 'mongodb',
     mongodb: {
       adapter: 'sails-mongo',
       url: process.env.MONGO_URL
