@@ -8,7 +8,7 @@ exports.config = {
   /**
    * Array of application names.
    */
-  app_name: ['quartvotabot'],
+  app_name: ['occvotingbot'],
   /**
    * Your New Relic license key.
    */
