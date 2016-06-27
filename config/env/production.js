@@ -13,7 +13,7 @@
 module.exports = {
 
   connections: {
-    'defaults': 'prodMySQL',
+    'defaults': 'mongodb',
     prodMySQL:{
       adapter: 'sails-mysql',
       host: process.env.DB_HOST,
