@@ -49,15 +49,6 @@ module.exports.connections = {
     database: ''
 
   },
-  privateMySQL: {
-    adapter: 'sails-mysql',
-    host: '',
-    port : '',
-    user: '',
-    password: '',
-    database: ''
-
-  },
 
   mongoLab : {
     adapter: 'sails-mongo',
