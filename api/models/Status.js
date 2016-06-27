@@ -6,7 +6,6 @@
  */
 
 module.exports = {
-  connection:'privateMySQL',
   attributes: {
     nid: {
       type: 'string',
