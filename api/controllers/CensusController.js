@@ -27,6 +27,7 @@ module.exports = {
       if(nid.isDNI(dni)){
         nidsearch="0"+dni;
       }
+      
 
       if (sails.config.census.check == 1) {
         Census.findOne({dni: nidsearch, birth_date: dateToCheck}).exec(function(ko, ok){
