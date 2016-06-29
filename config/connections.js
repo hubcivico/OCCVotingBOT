@@ -23,17 +23,6 @@ module.exports.connections = {
 
   /***************************************************************************
    *                                                                          *
-   * Local disk storage for DEVELOPMENT ONLY                                  *
-   *                                                                          *
-   * Installed by default.                                                    *
-   *                                                                          *
-   ***************************************************************************/
-  localDiskDb: {
-    adapter: 'sails-disk'
-  },
-
-  /***************************************************************************
-   *                                                                          *
    * MySQL is the world's most popular relational database.                   *
    * http://en.wikipedia.org/wiki/MySQL                                       *
    *                                                                          *
@@ -48,15 +37,6 @@ module.exports.connections = {
     password: '',
     database: ''
 
-  },
-
-  mongoLab : {
-    adapter: 'sails-mongo',
-    host: '',
-    port: '',
-    user: '',
-    password: '',
-    database: ''
   }
 
 };
