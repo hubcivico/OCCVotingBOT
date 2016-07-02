@@ -16,7 +16,7 @@ module.exports = {
       unique: true // Yes unique one
     },
     birth_date:{
-      type: 'date',
+      type: 'string',
       required: true
     },
     sex:{
