@@ -136,7 +136,7 @@ module.exports.answeringRegisterS3 = function (command, userId, callback_query_i
         if (sails.config.census.check == 1) {
           if (ok.retry_birth_date < 3) {
             var retry = 3 - ok.retry_birth_date;
-            Census.findOne({birth_date: dateFinal}).exec(function (ko, ok) {
+            Census.findOne({birth_date: dateToCheck}).exec(function (ko, ok) {
               if (ok) {
                 stages.updateStage({user_id: userId}, {stage: 4, valid: true}); //We validate the user in order to vote.
                 telegram.sendMessage(userId, strings.tell('register.complete', locale), "", true, null, {hide_keyboard: true})
