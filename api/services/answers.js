@@ -402,11 +402,11 @@ module.exports.answeringVote = function (command, userId, locale) {
 
   if(duplicates.length>0){
     telegram.sendMessage(userId, strings.tell('voting.error.duplicates', locale));
-  }else if (sortedArray.length > 8) { //TODO: HARDCODED
+  }else if (sortedArray.length > 3) { //TODO: HARDCODED
     telegram.sendMessage(userId, strings.tell('voting.error', locale));
-  } else if (sortedArray.length <= 8 && duplicates.length==0) {
+  } else if (sortedArray.length <= 3 && duplicates.length==0) {
     for (var i = 0; i < sortedArray.length; i++) {
-      if (parseInt(sortedArray[i]) > 24 || parseInt(sortedArray[i]) < 1 ) {
+      if (parseInt(sortedArray[i]) > 9 || parseInt(sortedArray[i]) < 1 ) {
         flag++;
       }
     }
