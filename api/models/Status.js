@@ -13,7 +13,7 @@ module.exports = {
       unique: true
     },
     telegram_id:{
-      type: 'string',
+      type: 'integer',
       defaultsTo: ''
     },
     has_voted:{
