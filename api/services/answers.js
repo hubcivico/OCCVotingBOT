@@ -410,6 +410,9 @@ module.exports.answeringVote = function (command, userId, locale) {
         flag++;
       }
     }
+
+    sails.log.debug("FLAAAG: "+flag);
+
     if (flag > 0) {
       telegram.sendMessage(userId, strings.tell('voting.incorrect', locale, flag));
     } else if (flag==0) {
