@@ -417,6 +417,7 @@ module.exports.answeringVote = function (command, userId, locale) {
         if(ko){
           sails.log.error("[DB] - Answers.js - answeringVote ERROR Status table: "+ko);
         }else if(ok){
+          sails.log.debug("RESULT QUERY: "+JSON.stringify(ok));
           if(!ok.has_voted){
             var pass = "PASS" + generator.generate({length: 5, numbers: true});
             var encryptedVote = cryptog.encrypt(sortedArray.toString(), pass);
