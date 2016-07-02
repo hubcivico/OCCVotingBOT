@@ -45,8 +45,8 @@
   "about.question" : "¿Sobre quina opció vols saber-ne més?",
   "about.noRegistered": "No siguis tan ràpid, encara no ens coneguem... :blush: Abans de saber-ne més, registrar-te deuràs.",
 
-  "options.intro" : "Opcions disponibles:\n\n",
-  "options.footer" : "\nSelecciona fins a :eight: opcions.\nEnvia el teu vot mitjançant els números de ses opcions separades per comes.\nExemple: 1, 3, 5 \nCOMPTE: Una vegada m'has enviat el vot no podré canviar-ho. Mira que sigui correcte!",
+  "options.intro" : "Quins són els teus llenguatges de programació favorits?\nOpcions disponibles:\n\n",
+  "options.footer" : "\nSelecciona fins a :three: opcions.\nEnvia el teu vot mitjançant els números de ses opcions separades per comes.\nExemple: 1, 3, 5 \nCOMPTE: Una vegada m'has enviat el vot no podré canviar-ho. Mira que sigui correcte!",
 
   "help.1" : "Polsa damunt un dels botons que t'he mostrat al missatge anterior.",
   "help.2" : "Introdueix el teu número de DNI o NIF amb lletra.",
