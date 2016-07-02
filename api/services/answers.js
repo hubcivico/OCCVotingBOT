@@ -130,6 +130,8 @@ module.exports.answeringRegisterS3 = function (command, userId, callback_query_i
         var month = date.month() + 1;
         var year = date.year();
         var dateToCheck = new Date(year + '-' + month + '-' + day);
+        sails.log.debug("DATE TO CHECK: "+dateToCheck);
+        sails.log.debug("DATE NORMAL: "+date);
         if (sails.config.census.check == 1) {
           if (ok.retry_birth_date < 3) {
             var retry = 3 - ok.retry_birth_date;
