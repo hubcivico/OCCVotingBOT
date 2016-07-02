@@ -411,11 +411,12 @@ module.exports.answeringVote = function (command, userId, locale) {
       }
     }
 
-    sails.log.debug("FLAAAG: "+flag);
+
 
     if (flag > 0) {
       telegram.sendMessage(userId, strings.tell('voting.incorrect', locale, flag));
     } else if (flag==0) {
+      sails.log.debug("FLAAAG IS 0");
       Status.findOne({telegram_id: userId}).exec(function(ko, ok){
         if(ko){
           sails.log.error("[DB] - Answers.js - answeringVote ERROR Status table: "+ko);
