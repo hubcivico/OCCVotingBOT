@@ -35,7 +35,7 @@ module.exports = {
   },
 
   models: {
-    connection: 'devMySQL',
+    connection: 'mongodb',
     migrate: process.env.MIGRATION_TYPE
 
 

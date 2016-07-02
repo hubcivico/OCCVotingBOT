@@ -52,117 +52,121 @@ module.exports.answeringRegisterS1 = function (command, userId, callback_query_i
 module.exports.answeringRegisterS2 = function (command, userId, callback_query_id, locale) {
   var doc = command.nid;
   var nidsearch = doc;
-  telegram.sendMessage(userId, strings.tell('register.check', locale), "", true, null, {hide_keyboard: true});
-  Status.findOne({nid: command.nid}).exec(function (ko, ok){
-    if(ko){
-      sails.log.error("[DB] - Answers.js STATUS findeOne ERROR: "+ko);
-    }else if(ok){
-      if(ok.has_voted){
-        telegram.sendMessage(userId, strings.tell('voting.alreadyVote', locale));
-        stages.updateStage({user_id: userId}, {has_voted: true, stage: 5});
-      }
-    }else {
-      if(nid.isDNI(doc)){
-        nidsearch = "0"+doc;
-      }
-      Users.findOne({user_id: userId}).exec(function (ko, ok) {
-        if (ok) {
-          if (sails.config.census.check == 1) { //Census User Check Activated
-            if (ok.retry_nid < 3) {
-              var retry = 3-ok.retry_nid;
-              Census.findOne({dni: nidsearch}).exec(function (ko, ok) {
-                if (ok) {
-                  stages.updateStage({user_id: userId}, {stage: 3});
-                  Status.create({nid: doc, telegram_id: userId, has_voted: false, user_type: 'Telegram'}).exec(function(ko, ok){
-                    if(ko){
-                      sails.log.error("[DB] - Answers.js STATUS Create error: "+ko);
-                    }
-                  });
-                  telegram.sendMessage(userId, strings.tell('register.bdate', locale), "", true, null, {hide_keyboard: true})
-                } else if (!ok) {
-                  telegram.sendMessage(userId, strings.tell('register.error.nid', locale, retry), "", true, null, {hide_keyboard: true});
-                  Users.findOne({user_id: userId}).exec(function (ko, ok) {
-                    if (ok) {
-                      ok.retry_nid++;
-                      ok.save(function (err, user) {
-                      });
-                    }
-                  });
-                } else if (ko) {
-                  sails.log.error("[DB] - Answers.js Error validating NID");
-                }
-              });
+  telegram.sendMessage(userId, strings.tell('register.check', locale), "", true, null, {hide_keyboard: true}).then(function(){
+    Status.findOne({nid: command.nid}).exec(function (ko, ok){
+      if(ko){
+        sails.log.error("[DB] - Answers.js STATUS findeOne ERROR: "+ko);
+      }else if(ok){
+        if(ok.has_voted){
+          telegram.sendMessage(userId, strings.tell('voting.alreadyVote', locale));
+          stages.updateStage({user_id: userId}, {has_voted: true, stage: 5});
+        }
+      }else {
+        if(nid.isDNI(doc)){
+          nidsearch = "0"+doc;
+        }
+        Users.findOne({user_id: userId}).exec(function (ko, ok) {
+          if (ok) {
+            if (sails.config.census.check == 1) { //Census User Check Activated
+              if (ok.retry_nid < 3) {
+                var retry = 3-ok.retry_nid;
+                Census.findOne({dni: nidsearch}).exec(function (ko, ok) {
+                  if (ok) {
+                    stages.updateStage({user_id: userId}, {stage: 3});
+                    Status.create({nid: doc, telegram_id: userId, has_voted: false, user_type: 'Telegram'}).exec(function(ko, ok){
+                      if(ko){
+                        sails.log.error("[DB] - Answers.js STATUS Create error: "+ko);
+                      }
+                    });
+                    telegram.sendMessage(userId, strings.tell('register.bdate', locale), "", true, null, {hide_keyboard: true})
+                  } else if (!ok) {
+                    telegram.sendMessage(userId, strings.tell('register.error.nid', locale, retry), "", true, null, {hide_keyboard: true});
+                    Users.findOne({user_id: userId}).exec(function (ko, ok) {
+                      if (ok) {
+                        ok.retry_nid++;
+                        ok.save(function (err, user) {
+                        });
+                      }
+                    });
+                  } else if (ko) {
+                    sails.log.error("[DB] - Answers.js Error validating NID");
+                  }
+                });
+
+              } else {
+                telegram.sendMessage(userId, strings.tell('register.banned', locale), "", true, null, {hide_keyboard: true});
+                stages.bannUser({user_id: userId}, {banned: true});
+              }
 
             } else {
-              telegram.sendMessage(userId, strings.tell('register.banned', locale), "", true, null, {hide_keyboard: true});
-              stages.bannUser({user_id: userId}, {banned: true});
+              stages.updateStage({user_id: userId}, {stage: 3});
+              Status.create({nid: command.nid, telegram_id: userId, has_voted: false, user_type: 'Telegram'}).exec(function(ko, ok){
+                if(ko){
+                  sails.log.error("[DB] - Answers.js STATUS Create error: "+ko);
+                }
+              });
+              telegram.sendMessage(userId, strings.tell('register.bdate', locale), "", true, null, {hide_keyboard: true})
             }
 
-          } else {
-            stages.updateStage({user_id: userId}, {stage: 3});
-            Status.create({nid: command.nid, telegram_id: userId, has_voted: false, user_type: 'Telegram'}).exec(function(ko, ok){
-              if(ko){
-                sails.log.error("[DB] - Answers.js STATUS Create error: "+ko);
-              }
-            });
-            telegram.sendMessage(userId, strings.tell('register.bdate', locale), "", true, null, {hide_keyboard: true})
+          } else if (ko) {
+            sails.log.error("[DB] - Answers.js FindUserError: " + ko);
           }
 
-        } else if (ko) {
-          sails.log.error("[DB] - Answers.js FindUserError: " + ko);
-        }
+        });
 
-      });
-
-    }
+      }
+    });
   });
+
 
 };
 
 module.exports.answeringRegisterS3 = function (command, userId, callback_query_id, locale) {
-  telegram.sendMessage(userId, strings.tell('register.check', locale), "", true, null, {hide_keyboard: true});
-  Users.findOne({user_id: userId}).exec(function (ko, ok) {
-    if (ok) {
-      var date = moment(command.date, "DD-MM-YYYY");
-      var day = date.date();
-      var month = date.month() + 1;
-      var year = date.year();
-      var dateToCheck = new Date(year + '-' + month + '-' + day);
-      if (sails.config.census.check == 1) {
-        if (ok.retry_birth_date < 3) {
-          var retry = 3 - ok.retry_birth_date;
-          Census.findOne({birth_date: dateToCheck}).exec(function (ko, ok) {
-            if (ok) {
-              stages.updateStage({user_id: userId}, {stage: 4, valid: true}); //We validate the user in order to vote.
-              telegram.sendMessage(userId, strings.tell('register.complete', locale), "", true, null, {hide_keyboard: true})
-            } else if (!ok) {
-              telegram.sendMessage(userId, strings.tell('register.error.bdate', locale, retry), "", true, null, {hide_keyboard: true});
-              Users.findOne({user_id: userId}).exec(function (ko, ok) {
-                if (ok) {
-                  ok.retry_birth_date++;
-                  ok.save(function (err, user) {
-                  });
-                }
-              });
-            } else if (ko) {
-              sails.log.error("[DB] - Answers.js Error validating Bdate");
-            }
-          });
+  telegram.sendMessage(userId, strings.tell('register.check', locale), "", true, null, {hide_keyboard: true}).then(function(){
+    Users.findOne({user_id: userId}).exec(function (ko, ok) {
+      if (ok) {
+        var date = moment(command.date, "DD-MM-YYYY");
+        var day = date.date();
+        var month = date.month() + 1;
+        var year = date.year();
+        var dateToCheck = new Date(year + '-' + month + '-' + day);
+        if (sails.config.census.check == 1) {
+          if (ok.retry_birth_date < 3) {
+            var retry = 3 - ok.retry_birth_date;
+            Census.findOne({birth_date: dateToCheck}).exec(function (ko, ok) {
+              if (ok) {
+                stages.updateStage({user_id: userId}, {stage: 4, valid: true}); //We validate the user in order to vote.
+                telegram.sendMessage(userId, strings.tell('register.complete', locale), "", true, null, {hide_keyboard: true})
+              } else if (!ok) {
+                telegram.sendMessage(userId, strings.tell('register.error.bdate', locale, retry), "", true, null, {hide_keyboard: true});
+                Users.findOne({user_id: userId}).exec(function (ko, ok) {
+                  if (ok) {
+                    ok.retry_birth_date++;
+                    ok.save(function (err, user) {
+                    });
+                  }
+                });
+              } else if (ko) {
+                sails.log.error("[DB] - Answers.js Error validating Bdate");
+              }
+            });
+
+          } else {
+            telegram.sendMessage(userId, strings.tell('register.banned', locale), "", true, null, {hide_keyboard: true});
+            stages.bannUser({user_id: userId}, {banned: true});
+          }
 
         } else {
-          telegram.sendMessage(userId, strings.tell('register.banned', locale), "", true, null, {hide_keyboard: true});
-          stages.bannUser({user_id: userId}, {banned: true});
+          stages.updateStage({user_id: userId}, {stage: 4, valid: true});
+          telegram.sendMessage(userId, strings.tell('register.complete', locale), "", true, null, {hide_keyboard: true})
         }
-
-      } else {
-        stages.updateStage({user_id: userId}, {stage: 4, valid: true});
-        telegram.sendMessage(userId, strings.tell('register.complete', locale), "", true, null, {hide_keyboard: true})
+      } else if (ko) {
+        sails.log.error("[DB] - Answers.js FindUserError: " + ko);
       }
-    } else if (ko) {
-      sails.log.error("[DB] - Answers.js FindUserError: " + ko);
-    }
 
-  });
+    });
+  })
+
 
 
 };
