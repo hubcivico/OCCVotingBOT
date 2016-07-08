@@ -1,8 +1,9 @@
 /**
  * CensusController
  *
- * @description :: Server-side logic for managing censuses
+ * @description :: Server-side logic for managing census registry
  * @help        :: See http://sailsjs.org/#!/documentation/concepts/Controllers
+ * @author      :: Alejandro González
  */
 
 var moment = require('moment');

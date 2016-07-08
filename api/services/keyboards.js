@@ -9,7 +9,6 @@
 
 
 module.exports.createKeyboard = function (type, locale) {
-  //TODO: HARDCODED
   var keyboard = "";
   var buttons = null;
 

@@ -3,6 +3,7 @@
  *
  * @description :: Server-side logic for managing votings
  * @help        :: See http://sailsjs.org/#!/documentation/concepts/Controllers
+ * @author      :: Alejandro González
  */
 
 var generator = require('generate-password');

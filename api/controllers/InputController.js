@@ -3,6 +3,7 @@
  *
  * @description :: Server-side logic for managing Inputs
  * @help        :: See http://sailsjs.org/#!/documentation/concepts/Controllers
+ * @author      :: Alejandro González
  */
 
 module.exports = {
