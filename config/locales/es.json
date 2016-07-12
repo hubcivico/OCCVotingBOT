@@ -26,7 +26,7 @@
   "register.expect.nid" : "Si si, sigo aquí :smile:\nEstoy esperando que me envíes tu DNI o NIE (8 dígitos con letra).",
   "register.expect.bdate" : "No me he ido, no te preocupes :smile:\nAhora necesito tu fecha de nacimiento para completar el registro (DD/MM/AAAA)",
 
-  "voting.error": "Vaya, parece que has querido votar más de :eight: opciones. \nRecuerda que como máximo puedes votar :eight: opciones.",
+  "voting.error": "Vaya, parece que has querido votar más de :three: opciones. \nRecuerda que como máximo puedes votar :three: opciones.",
   "voting.ready" : "¡Hola de nuevo %s, ya tenemos todos tus datos verificados, ¿preparadx para votar? :grin:\nSi es así, puedes enviarme tu voto",
   "voting.noRegistered": "No vayas tan rápido, apenas nos conocemos... :blush: Antes de votar, registrarte deberás. ",
   "voting.success": "Tu voto ha sido guardado correctamente :thumbsup: \nEste es el código para verificar que tu voto es correcto:",

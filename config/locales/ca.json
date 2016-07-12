@@ -24,7 +24,7 @@
   "register.error.bdate": "Ups :flushed:, em pareix que hi ha hagut un error. És posible que no hi apareixes en el Cens de votants \nTorna a introduir la teva data de naixement per si t'hagueres equivocat.\nTens %s intents.",
   "register.banned": "Lo lament :flushed:, has esgotat els intents per a registrar-te. Per seguretat he bloquejat el teu usuari",
 
-  "voting.error": "Vaja, pareix que has volgut votar més de :eight: opcions. \nRecorda que com màxim pots votar :eight: opcions.",
+  "voting.error": "Vaja, pareix que has volgut votar més de :three: opcions. \nRecorda que com màxim pots votar :three: opcions.",
   "voting.ready" : "Hola de nou %s, ja tenim totes les teues dades verificades, preparat/ada per a votar? :grin:\nSi és així, pots enviar-me el teu vot.",
   "voting.noRegistered": "No siguis tan ràpid, encara no ens coneguem... :blush: Abans de votar, registrar-te deuràs.",
   "voting.success": "El teu vot ha estat guardat correctament :thumbsup: \nAquest és el codi per a verificar que el teu vot és correcte:",
