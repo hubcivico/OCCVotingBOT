@@ -45,7 +45,7 @@
   "about.question" : "¿Sobre qué opción quieres saber más?",
   "about.noRegistered": "No vayas tan rápido, apenas nos conocemos... :blush: Antes de saber más, registrarte deberás. ",
 
-  "options.intro" : "¿Cuáles son tus lenguajes de programación favoritos?\nOpciones disponibles:\n\n",
+  "options.intro" : "Opciones disponibles:\n\n",
   "options.footer" : "\nSelecciona hasta :three: opciones.\nEnvía tu voto utilizando los números de las opciones separados por comas.\nEjemplo: 1, 3, 5\nCUIDADO: Una vez me has enviado el voto no podré cambiarlo. ¡Asegurate de que es correcto!",
 
   "help.1" : "Pulsa sobre uno de los botones que te he mostrado en el mensaje anterior.",
